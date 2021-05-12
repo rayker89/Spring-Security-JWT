@@ -50,11 +50,15 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+		<!-- <dependency> <groupId>org.postgresql</groupId> <artifactId>postgresql</artifactId> 
+			<scope>runtime</scope> </dependency> -->
+
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
@@ -72,48 +76,22 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- <plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>${frontend-maven-plugin.version}</version>
+			<!-- <plugin> <groupId>com.github.eirslett</groupId> <artifactId>frontend-maven-plugin</artifactId> 
+				<version>${frontend-maven-plugin.version}</version> <configuration> <nodeVersion>${node.version}</nodeVersion> 
+				<yarnVersion>${yarn.version}</yarnVersion> <workingDirectory>${frontend-src-dir}</workingDirectory> 
+				<installDirectory>target</installDirectory> </configuration> <executions> 
+				<execution> <id>install-frontend-tools</id> <goals> <goal>install-node-and-yarn</goal> 
+				</goals> </execution> <execution> <id>yarn-install</id> <goals> <goal>yarn</goal> 
+				</goals> <configuration> <arguments>install</arguments> </configuration> 
+				</execution> <execution> <id>build-frontend</id> <goals> <goal>yarn</goal> 
+				</goals> <phase>prepare-package</phase> <configuration> <arguments>run build</arguments> 
+				</configuration> </execution> </executions> </plugin> -->
 
-				<configuration>
-					<nodeVersion>${node.version}</nodeVersion>
-					<yarnVersion>${yarn.version}</yarnVersion>
-					<workingDirectory>${frontend-src-dir}</workingDirectory>
-					<installDirectory>${project.build.directory}</installDirectory>
-				</configuration>
-
-				<executions>
-					<execution>
-						<id>install-frontend-tools</id>
-						<goals>
-							<goal>install-node-and-yarn</goal>
-						</goals>
-					</execution>
-
-					<execution>
-						<id>yarn-install</id>
-						<goals>
-							<goal>yarn</goal>
-						</goals>
-						<configuration>
-							<arguments>install</arguments>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>build-frontend</id>
-						<goals>
-							<goal>yarn</goal>
-						</goals>
-						<phase>prepare-package</phase>
-						<configuration>
-							<arguments>build</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
+			<!-- <plugin> <artifactId>maven-antrun-plugin</artifactId> <executions> 
+				<execution> <phase>generate-resources</phase> <configuration> <target> <copy 
+				todir="${project.build.directory}/classes/public"> <fileset dir="${frontend-src-dir}/build" 
+				/> </copy> </target> </configuration> <goals> <goal>run</goal> </goals> </execution> 
+				</executions> </plugin> -->
 
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -125,10 +103,10 @@
 						</goals>
 						<phase>prepare-package</phase>
 						<configuration>
-							<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+							<outputDirectory>${project.build.directory}/classes/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${frontend-src-dir}/build</directory>
+									<directory>${project.basedir}/../react-jwt-auth/build</directory>
 									<filtering>false</filtering>
 								</resource>
 							</resources>
